@@ -1,6 +1,6 @@
 # Startup - Free Next.js Startup Website Template
 
-Adapt readme file!
+Adapt readme file for Azure!
 
 Startup free, open-source, and premium-quality startup website template for Next.js comes with everything you need to launch a startup, business, or SaaS website, including all essential sections, components, and pages.
 
