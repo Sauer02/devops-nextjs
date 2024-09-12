@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - Devops-nextjs
+name: Build and deploy Node.js app to Azure Web App - devops-nextjs
 
 on:
   push:
@@ -57,15 +57,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E324B4B98CF34F3BB12BFFC007AE0746 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3EC1EFA5D4644FD4918EE30B441EC2FE }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_568792CE7B6540F49DCBCFF841722E1F }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_100208C698E449619F670DF35FF86917 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9A3662CAA9EA41489BD5F5C485FB1147 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9FA27B5C47A04E52BE8F45A5387665AE }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'Devops-nextjs'
+          app-name: 'devops-nextjs'
           slot-name: 'Production'
           package: .
           
