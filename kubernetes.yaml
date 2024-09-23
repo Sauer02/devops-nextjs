@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextjs-app
+  labels:
+    app: nextjs-app
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: nextjs-app
+  template:
+    metadata:
+      labels:
+        app: nextjs-app
+    spec:
+      containers:
+        - name: nextjs-container
+          image: csauercampus/devops-nextjs:main
+          ports:
+            - containerPort: 3000 # Port exposed by the container
+          livenessProbe:
+            httpGet:
+              path: /about
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /about
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextjs-service
+spec:
+  type: LoadBalancer # Use LoadBalancer for cloud deployment, NodePort for local
+  selector:
+    app: nextjs-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 3000 # Maps the Service port to the container port
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nextjs-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nextjs-app
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70 # Autoscale when CPU usage exceeds 70%
+
